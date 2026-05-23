@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Responsive 3D Glass Loader</title>
+
+<style>
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a0033, #4d0099, #9900ff);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.loader{
+  position: relative;
+
+  /* RESPONSIVE SIZE */
+  width: clamp(180px, 35vw, 320px);
+  height: clamp(180px, 35vw, 320px);
+
+  transform-style: preserve-3d;
+  transform: rotateX(35deg) rotateZ(345deg);
+
+  animation: animateLoader 20s linear infinite;
+}
+
+/* ROTATION */
+@keyframes animateLoader{
+  0%{
+    transform: rotateX(35deg) rotateZ(0deg);
+  }
+
+  100%{
+    transform: rotateX(35deg) rotateZ(360deg);
+  }
+}
+
+/* GLASS PANELS */
+.loader span{
+  position: absolute;
+  inset: 0;
+
+  /* RESPONSIVE DEPTH */
+  transform: rotateY(calc(var(--i) * 45deg))
+             translateZ(clamp(90px, 18vw, 160px));
+}
+
+.loader span i{
+  position: absolute;
+  inset: 0;
+
+  background: rgba(200, 100, 255, 0.08);
+
+  border: 2px solid rgba(200, 100, 255, 0.4);
+
+  box-shadow:
+     0 0 20px rgba(153, 0, 255, 0.6),
+    inset 0 0 20px rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(4px);
+
+  animation: animateGlass 2.5s linear infinite;
+  animation-delay: calc(var(--i) * 0.3s);
+
+  transition: 0.5s;
+}
+
+/* GLASS EFFECT */
+@keyframes animateGlass{
+
+  0%,100%{
+    background: rgba(255,255,255,0.05);
+  }
+
+  50%{
+    background: rgba(255,255,255,0.15);
+  }
+}
+
+/* HOVER EFFECT */
+.loader:hover span i{
+  background: rgba(255,255,255,0.2);
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.5),
+    0 0 40px rgba(153,0,255,0.7);
+}
+@media (max-width: 600px){
+
+  body{
+    padding: 10px;
+  }
+
+  .loader{
+    width: 180px;
+    height: 180px;
+  }
+
+  .loader span{
+    transform: rotateY(calc(var(--i) * 45deg))
+               translateZ(90px);
+  }
+
+  .loader span i{
+    border-width: 1.5px;
+  }
+}
+
+
+@media (min-width: 601px) and (max-width: 992px){
+
+  .loader{
+    width: 250px;
+    height: 250px;
+  }
+
+  .loader span{
+    transform: rotateY(calc(var(--i) * 45deg))
+               translateZ(120px);
+  }
+}
+
+@media (min-width: 993px){
+
+  .loader{
+    width: 320px;
+    height: 320px;
+  }
+
+  .loader span{
+    transform: rotateY(calc(var(--i) * 45deg))
+               translateZ(160px);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="loader">
+
+  <span style="--i:1"><i></i></span>
+  <span style="--i:2"><i></i></span>
+  <span style="--i:3"><i></i></span>
+  <span style="--i:4"><i></i></span>
+  <span style="--i:5"><i></i></span>
+  <span style="--i:6"><i></i></span>
+  <span style="--i:7"><i></i></span>
+  <span style="--i:8"><i></i></span>
+
+</div>
+
+</body>
+</html>
